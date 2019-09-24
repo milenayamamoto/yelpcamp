@@ -1,0 +1,58 @@
+<!-- include header -->
+<% include ../partials/header %>
+
+<!-- Jumbotron header -->
+<div class="row-full jumbotron mt-5 p-5 main_banner">
+	<div class="container text-center">
+		<h1><i class="fas fa-map-signs"></i><span class="font-title"> Welcome to YelpCamp!</span></h1>
+		<p>View our hand-picked campgrounds from all over the world.</p>
+		
+	</div>
+</div>
+
+<!-- Search bar -->
+<form action="/campgrounds" method="GET">
+	<div class="input-group mb-3">
+		<input class="form-control" type="text" name="search" placeholder="Search campground..." aria-describedby="Search">
+		<div class="input-group-append">
+			<button class="input-group-text btn btn-success" id="Search"><i class="fas fa-search"></i></button>
+		</div>
+	</div>
+</form>	
+
+<!-- New Campground button -->
+<div class="mb-4">
+	<a class="btn btn-success" href="/campgrounds/new"><i class="fas fa-mountain"></i> Add New Campground</a>
+</div>
+
+<div class="row text-center">
+	<% campgrounds.forEach((campground) => { %>
+		<div class="col-lg-3 col-md-4 col-sm-6 mb-4">			
+			<div class="card">
+				<!-- Check if there's a campground image -->
+				<% if(campground.image !== "") { %>
+					<img src="<%= campground.image %>" class="card-img-top landing-page" alt="<%= campground.image %>">
+				<% } else { %>
+					<img src="https://dummyimage.com/500x300/a1a1a1/ffffff&text=No+Image" class="card-img-top landing-page" alt="No image available for this campground">
+				<% } %>
+				
+				<div class="card-body">
+					<div class="float-right">
+					   <span class="badge badge-pill badge-success"><i class="fas fa-thumbs-up"></i> <%= campground.likes.length %></span>
+				   </div>
+					<h5 class="card-title"><%= campground.name %></h5>
+					<a href="/campgrounds/<%= campground._id %>" class="btn btn-dark">More Info <i class="fas fa-angle-right"></i></a>
+				</div>
+			</div>	
+		</div>
+	<% }) %>
+	
+	<% if(noMatch !== undefined) { %>
+		<div class="col-md-12">
+			<h3><%= noMatch %></h3>
+		</div>
+	<% } %>
+</div>
+
+<!-- include footer -->
+<% include ../partials/footer %>

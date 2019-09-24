@@ -1,0 +1,86 @@
+var express = require("express");
+var router = express.Router();
+var passport = require("passport");
+var User = require("../models/user");
+var Campground = require("../models/campgrounds");
+
+//Root route
+router.get("/", (req,res) =>{
+	res.render("landing");
+});
+
+//Show register form
+router.get("/register", (req, res) => {
+	res.render("register", {page: "register"});
+});
+
+//Handle Sign Up logic
+router.post("/register", (req, res) =>{
+
+	var newUser = new User({
+		username: req.body.username, 
+		firstName: req.body.firstName, 
+		lastName: req.body.lastName,
+		email: req.body.email,
+		avatar: req.body.avatar
+	});
+	
+	//Check if user is registered as admin
+	if(req.body.adminCode === process.env.ADMINCODE) {
+		newUser.isAdmin = true;
+		req.flash("success", "Registered as admin! ");
+	} else if (req.body.adminCode && req.body.adminCode !== process.env.ADMINCODE) {
+		req.flash("error", "Your code does not match with the admin code! ");
+	}
+	User.register(newUser, req.body.password, (err, user) =>{
+		if(err){
+			req.flash("error", err.message);
+			return res.redirect("/register");
+		}
+		passport.authenticate("local")(req, res, ()=>{
+			req.flash("success", "Welcome to YelpCamp, " + user.username);
+			res.redirect("/campgrounds");
+		});
+	});
+});
+
+//Show login form
+router.get("/login", (req, res) =>{
+	res.render("login", {page: "login"});
+});
+
+//Handling login logic
+router.post("/login", passport.authenticate("local", 
+	{
+	successRedirect: "/campgrounds",
+	failureRedirect: "/login",
+	failureFlash: true,
+	successFlash: "Welcome back to YelpCamp!" 
+	}), (req, res) =>{
+});
+
+//Logout route
+router.get("/logout", (req, res) =>{
+	req.logout();
+	req.flash("success", "You've been logged out successfully. We hope to see you again soon!");
+	res.redirect("/campgrounds");
+});
+
+//USER PROFILE
+router.get("/users/:id", (req, res) => {
+	User.findById(req.params.id, (err, foundUser) => {
+		if(err) {
+			req.flash("error", "Something went wrong!");
+			req.redirect("/");
+		}
+		Campground.find().where("author.id").equals(foundUser._id).exec((err, campgrounds) =>{
+			if(err){
+				req.flash("error", "Something went wrong!");
+				req.redirect("/");
+			}	
+			res.render("users/show", {user: foundUser, campgrounds: campgrounds});
+		});	
+	});
+});
+
+module.exports = router;

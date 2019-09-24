@@ -1,0 +1,32 @@
+<!-- include header -->
+<% include ./partials/header %>
+
+<div class="row justify-content-center">
+    <div class="col-xs-12 col-md-8 col-lg-6">
+		<form class="form-signin" action="/login" method="POST">
+			<h1 class="text-center">Login</h1>
+			
+			<div class="input-group mb-2">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="inputUsername"><i class="fas fa-user"></i></span>
+				</div>
+				<input class="form-control" type="text" name="username" placeholder="Username" aria-describedby="inputUsername" required autofocus>
+			</div>
+			<div class="input-group mb-2">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="inputPassword"><i class="fas fa-lock"></i></span>
+				</div>
+				<input class="form-control" type="password" name="password" placeholder="Password" aria-describedby="inputPassword" required>
+			</div>
+			<button class="btn btn-lg btn-success btn-block" type="submit">Sign in <i class="fas fa-arrow-alt-circle-right"></i></button>
+		</form>
+		
+		<div class="text-center mt-1">Not registered? <a href="/register">Create an account</a></div>
+		<div class="form-signin">
+			<a href="/campgrounds">Go Back</a>
+		</div>
+    </div>
+</div>
+
+<!-- include footer -->
+<% include ./partials/footer %>

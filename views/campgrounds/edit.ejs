@@ -1,0 +1,47 @@
+<!-- include header -->
+<% include ../partials/header %>
+
+<div class="row justify-content-center">
+	<div class="col-xs-12 col-md-8 col-lg-6">
+		<h1 class="form-signin text-center">Edit <em><%= campground.name %></em></h1>
+		<form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST">
+			<div class="input-group mb-2">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="inputCampgroundName"><i class="fas fa-campground"></i></span>
+				</div>
+				<input class="form-control" type="text" name="campground[name]" aria-describedby="inputCampgroundName" value="<%= campground.name %>" required autofocus>
+			</div>
+			<div class="input-group mb-2">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="inputCampgroundPrice"><i class="fas fa-money-bill-wave"></i></span>
+				</div>
+				<input class="form-control" type="number" name="campground[price]" aria-describedby="inputCampgroundPrice" value="<%= campground.price %>" min="0.01" step="0.01" required>
+			</div>
+			<div class="input-group mb-2">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="inputCampgroundImage"><i class="fas fa-camera"></i></span>
+				</div>
+				<input class="form-control" type="text" name="campground[image]" aria-describedby="inputCampgroundImage" value="<%= campground.image %>">
+			</div>
+			<div class="input-group mb-2">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="inputCampgroundLocation"><i class="fas fa-map-marked-alt"></i></span>
+				</div>
+				<input class="form-control" type="text" name="location" aria-describedby="inputCampgroundLocation" value="<%= campground.location %>" required>
+			</div>
+			<div class="input-group mb-2">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="inputCampgroundDescription"><i class="fas fa-pencil-alt"></i></span>
+				</div>
+				<textarea class="form-control" rows="5" id="inputCampgroundDescription" name="campground[description]" required><%= campground.description %></textarea>
+			</div>
+			<button class="btn btn-lg btn-success btn-block" type="submit">Submit <i class="fas fa-arrow-alt-circle-right"></i></button>
+		</form>
+		<div class="form-signin">
+			<a href="/campgrounds">Go Back</a>
+		</div>
+	</div>		
+</div>
+
+<!-- include footer -->
+<% include ../partials/footer %>
