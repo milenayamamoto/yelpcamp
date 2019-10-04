@@ -61,11 +61,11 @@ app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
 // GoormIDE
-// app.listen(3000, () =>{
-// 	console.log("YelpCamp server has started!");
-// });
+app.listen(3000, () =>{
+	console.log("YelpCamp server has started!");
+});
 
 // Heroku
-app.listen(process.env.PORT, process.env.IP, () =>{
-	console.log("Server is running!");
-});
+// app.listen(process.env.PORT, process.env.IP, () =>{
+// 	console.log("Server is running!");
+// });
