@@ -3,43 +3,43 @@
 
 <div class="row justify-content-center">
 	<div class="col-xs-12 col-md-8 col-lg-6">
-		<h1 class="text-center">Create a New Campground</h1>
+		<h1 class="text-center">Criar novo</h1>
 		<form class="form-signin" action="/campgrounds" method="POST">
 			
 			<div class="input-group mb-2">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputName"><i class="fas fa-campground"></i></span>
 				</div>
-				<input class="form-control" type="text" name="name" aria-describedby="inputName" placeholder="Name" required autofocus>
+				<input class="form-control" type="text" name="name" aria-describedby="inputName" placeholder="Nome" required autofocus>*
 			</div>
 			<div class="input-group mb-2">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputPrice"><i class="fas fa-money-bill-wave"></i></span>
 				</div>
-				<input class="form-control" type="number" name="price" aria-describedby="inputPrice" placeholder="Price" min="0.01" step="0.01" required>
+				<input class="form-control" type="number" name="price" aria-describedby="inputPrice" placeholder="Preço" min="0.01" step="0.01" required>*
 			</div>
 			<div class="input-group mb-2">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputImage"><i class="fas fa-camera"></i></span>
 				</div>
-				<input class="form-control" type="text" name="image" aria-describedby="inputImage" placeholder="Campground Image URL">
+				<input class="form-control" type="text" name="image" aria-describedby="inputImage" placeholder="Link da Imagem do Acampamento">
 			</div>
 			<div class="input-group mb-2">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputLocation"><i class="fas fa-map-marked-alt"></i></span>
 				</div>
-				<input class="form-control" type="text" name="location" aria-describedby="inputLocation" placeholder="Campground Location/City/Address" required>
+				<input class="form-control" type="text" name="location" aria-describedby="inputLocation" placeholder="Localização Cidade/Estado" required>*
 			</div>
 			<div class="input-group mb-2">
 				<div class="input-group-prepend">
 					<span class="input-group-text" id="inputDescription"><i class="fas fa-pencil-alt"></i></span>
 				</div>
-				<textarea class="form-control" rows="5" id="inputDescription" name="description" placeholder="Description here..." required></textarea>
+				<textarea class="form-control" rows="5" id="inputDescription" name="description" placeholder="Descrição..." required></textarea>*
 			</div>
-			<button class="btn btn-lg btn-success btn-block" type="submit">Submit <i class="fas fa-arrow-alt-circle-right"></i></button>	
+			<button class="btn btn-lg btn-success btn-block" type="submit">Enviar <i class="fas fa-arrow-alt-circle-right"></i></button>	
 		</form>
 		<div class="form-signin">
-			<a href="/campgrounds">Go Back</a>
+			<a href="/campgrounds">Voltar</a>
 		</div>
 	</div>		
 </div>

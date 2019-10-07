@@ -24,7 +24,7 @@ router.get("/", (req,res) =>{
 				console.log(err);
 			} else {
 				if(allCampgrounds.length < 1) {
-					noMatch = "No campgrounds match with that query, please try again.";
+					noMatch = "Nenhum acampamento foi encontrado.";
 				}
 				res.render("campgrounds/index", {campgrounds: allCampgrounds, page: "campgrounds", noMatch: noMatch});
 			}
@@ -54,7 +54,7 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
 	}
 	geocoder.geocode(req.body.location, (err, data) => {
 		if (err || !data.length) {
-			req.flash('error', 'Invalid address');
+			req.flash('error', 'Endereço inválido');
 			return res.redirect('back');
 		}
 		var lat = data[0].latitude;
@@ -68,7 +68,7 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
 			} else {
 				//redirect back to campgrounds page
 				console.log(newlyCreated);
-				req.flash("success", "Campground added successfully!");
+				req.flash("success", "Acampamento criado com sucesso!");
 				res.redirect("/campgrounds");
 			}
 		});
@@ -85,7 +85,7 @@ router.get("/:id", (req, res) =>{
 	//Find the campground with provided ID
 	Campground.findById(req.params.id).populate("comments likes").exec((err, foundCampground) => {
 		if(err || !foundCampground){
-			req.flash("error", "Campground not found!");
+			req.flash("error", "Acampamento não encontrado!");
 			res.redirect("back");
 		} else {
 			console.log(foundCampground);
@@ -120,7 +120,7 @@ router.post("/:id/like", middleware.isLoggedIn, (req, res) => {
 		foundCampground.save((err) => {
 			if (err) {
 				console.log(err);
-				req.flash("error", "Problem saving the campground!");
+				req.flash("error", "Problemas ao salvar o acampamento!");
 				return res.redirect("/campgrounds");
 			}
 			return res.redirect("/campgrounds/" + foundCampground._id);
@@ -139,7 +139,7 @@ router.get("/:id/edit", middleware.checkCampgroundOwnership, (req, res) =>{
 router.put("/:id", middleware.checkCampgroundOwnership, (req, res) => {
 	geocoder.geocode(req.body.location, (err, data) => {
 		if (err || !data.length) {
-			req.flash('error', 'Invalid address');
+			req.flash('error', 'Endereço inválido');
 			return res.redirect('back');
 		}
 		req.body.campground.lat = data[0].latitude;
@@ -152,7 +152,7 @@ router.put("/:id", middleware.checkCampgroundOwnership, (req, res) => {
 				req.flash("error", err.message);
 				res.redirect("back");
 			} else {
-				req.flash("success","Successfully Updated!");
+				req.flash("success","Atualizado com sucesso!");
 				res.redirect("/campgrounds/" + campground._id);
 			}
 		});
@@ -165,7 +165,7 @@ router.delete("/:id", middleware.checkCampgroundOwnership, (req, res) => {
 		if(err){
 			res.redirect("/campgrounds");
 		} else {
-			req.flash("success", "Campground deleted successfully!");
+			req.flash("success", "Acampamento excluído com sucesso!");
 			res.redirect("/campgrounds");
 		}
 	});

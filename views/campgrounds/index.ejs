@@ -4,8 +4,8 @@
 <!-- Jumbotron header -->
 <div class="row-full jumbotron mt-5 p-5 main_banner">
 	<div class="container text-center">
-		<h1><i class="fas fa-map-signs"></i><span class="font-title"> Welcome to YelpCamp!</span></h1>
-		<p>View our hand-picked campgrounds from all over the world.</p>
+		<h1><i class="fas fa-map-signs"></i><span class="font-title"> Bem-vindo ao AcampaKi!</span></h1>
+		<p>Veja nossos acampamentos e descubra momentos maravilhosos.</p>
 		
 	</div>
 </div>
@@ -13,7 +13,7 @@
 <!-- Search bar -->
 <form action="/campgrounds" method="GET">
 	<div class="input-group mb-3">
-		<input class="form-control" type="text" name="search" placeholder="Search campground..." aria-describedby="Search">
+		<input class="form-control" type="text" name="search" placeholder="Procurar..." aria-describedby="Search">
 		<div class="input-group-append">
 			<button class="input-group-text btn btn-success" id="Search"><i class="fas fa-search"></i></button>
 		</div>
@@ -22,7 +22,7 @@
 
 <!-- New Campground button -->
 <div class="mb-4">
-	<a class="btn btn-success" href="/campgrounds/new"><i class="fas fa-mountain"></i> Add New Campground</a>
+	<a class="btn btn-success" href="/campgrounds/new"><i class="fas fa-mountain"></i> Adicionar acampamento</a>
 </div>
 
 <div class="row text-center">
@@ -33,7 +33,7 @@
 				<% if(campground.image !== "") { %>
 					<img src="<%= campground.image %>" class="card-img-top landing-page" alt="<%= campground.image %>">
 				<% } else { %>
-					<img src="https://dummyimage.com/500x300/a1a1a1/ffffff&text=No+Image" class="card-img-top landing-page" alt="No image available for this campground">
+					<img src="https://dummyimage.com/500x300/a1a1a1/ffffff&text=No+Image" class="card-img-top landing-page" alt="Sem imagem disponível">
 				<% } %>
 				
 				<div class="card-body">

@@ -3,11 +3,11 @@
 
 <div class="row text-center">
 	<div class="col-12">
-		<h1><strong><%= "Profile of " + user.username %></strong></h1>	
+		<h1><strong><%= "Perfil de: " + user.username %></strong></h1>	
 		<% if(user.avatar !== "") { %>
-			<img src="<%= user.avatar %>" alt="user profile image" class="profile_img">
+			<img src="<%= user.avatar %>" alt="Imagem do usuário" class="profile_img">
 		<% } else { %>
-			<img src="https://dummyimage.com/300x200/a1a1a1/ffffff&text=No+Avatar" alt="user profile image" class="profile_img">
+			<img src="https://dummyimage.com/300x200/a1a1a1/ffffff&text=No+Avatar" alt="Usuário sem imagem" class="profile_img">
 		<% } %>
 
 		Email: <a href="mailto:<%= user.email %>"><%= user.email %></a>
@@ -16,7 +16,7 @@
 
 <hr>
 	
-<h3><%= user.username %>'s campgrounds:</h3>
+<h3>Acampamentos cadastrados por <%= user.username %>:</h3>
 <div class="row text-center justify-content-center">		
 	<% campgrounds.forEach((campground) => { %>
 		<div class="col-lg-3 col-md-4 col-sm-6 mb-4">			
@@ -30,7 +30,7 @@
 
 				<div class="card-body">
 					<h5 class="card-title"><%= campground.name %></h5>
-					<a href="/campgrounds/<%= campground._id %>" class="btn btn-dark">More Info <i class="fas fa-angle-right"></i></a>
+					<a href="/campgrounds/<%= campground._id %>" class="btn btn-dark">Ver mais <i class="fas fa-angle-right"></i></a>
 				</div>
 			</div>	
 		</div>

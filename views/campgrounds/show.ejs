@@ -3,7 +3,7 @@
 
 <div class="row">
 	<div class="col-md-3 mb-5">
-		<h5>Camp Location:</h5>
+		<h5>Localização:</h5>
 		<div id="map"></div>
 	</div>
 	<div class="col-md-9">
@@ -13,17 +13,17 @@
 			<% if(campground.image !== "") { %>
 				<img src="<%= campground.image %>" class="card-img-top" alt="<%= campground.image %>">
 			<% } else { %>
-				<img src="https://dummyimage.com/500x300/a1a1a1/ffffff&text=No+Image" class="card-img-top" alt="No image available for this campground">
+				<img src="https://dummyimage.com/500x300/a1a1a1/ffffff&text=No+Image" class="card-img-top" alt="Não há imagens disponíveis para esse acampamento">
 			<% } %>
 			<div class="card-body">
 				<div class="list-inline">
 					<h3 class="card-title list-inline-item"><%= campground.name %></h3>
 					<h4  class="float-right list-inline-item">
-						<span class="badge badge-pill badge-dark"><em>$<%= campground.price %> /night</em></span>
+						<span class="badge badge-pill badge-dark"><em>$<%= campground.price %> /dia</em></span>
 				 	</h4>
 				</div>
 				<p>
-					<em>Submitted by: <a href="/users/<%= campground.author.id %>"><%= campground.author.username %></a></em>
+					<em>Enviado por: <a href="/users/<%= campground.author.id %>"><%= campground.author.username %></a></em>
 					<em class="float-right"><%= moment(campground.createdAt).fromNow() %></em>
 				</p>
 				<hr>
@@ -36,15 +36,15 @@
 								return like.equals(currentUser._id)
 							})) { %>
 								<button class="btn btn-sm btn-primary">
-									<i class="fas fa-thumbs-up"></i> Liked (<%= campground.likes.length %>)
+									<i class="fas fa-thumbs-up"></i> Curtido (<%= campground.likes.length %>)
 								</button>
 							<% } else { %>
 								<button class="btn btn-sm btn-info">
-									<i class="fas fa-thumbs-up"></i> Like (<%= campground.likes.length %>)
+									<i class="fas fa-thumbs-up"></i> Curtir (<%= campground.likes.length %>)
 								</button>
 							<% } %>
 							<button type="button" class="btn btn-sm btn-light" data-toggle="modal"
-									data-target="#campgroundLikes">See more details
+									data-target="#campgroundLikes">Ver mais
 							</button>
 						</div>
 					</form>
@@ -56,7 +56,7 @@
 						<!-- Modal content-->
 						<div class="modal-content">
 							<div class="modal-header">
-								<h4 class="modal-title">Campground likes: <%= campground.likes.length %></h4>
+								<h4 class="modal-title">Curtidas do acampamento: <%= campground.likes.length %></h4>
 								<!-- Type="button" prevents modal auto closing -->
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							</div>
@@ -75,14 +75,14 @@
 									<% }); %>
 									<% if (campground.likes.length === 0) { %>
 										<tr>
-											<td><em>No likes yet.</em></td>
+											<td><em>Sem curtidas.</em></td>
 										</tr>
 									<% } %>
 									</tbody>
 								</table>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
 							</div>
 						</div>
 					</div>
@@ -91,9 +91,9 @@
 				<!-- Edit && Delete Buttons -->
 				<p class="card-text"><%= campground.description %></p>
 				<% if(currentUser && campground.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
-					<a class="btn btn-sm btn-warning" href="/campgrounds/<%= campground._id %>/edit">Edit <i class="fas fa-edit"></i></a>
+					<a class="btn btn-sm btn-warning" href="/campgrounds/<%= campground._id %>/edit">Editar <i class="fas fa-edit"></i></a>
 					<form class="delete-form" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
-						<button class="btn btn-sm btn-danger">Delete <i class="fas fa-trash-alt"></i></button>
+						<button class="btn btn-sm btn-danger">Excluir <i class="fas fa-trash-alt"></i></button>
 					</form>
 				<% } %>
 			</div>
@@ -101,9 +101,9 @@
 		<!-- <div class="card"> -->
 			<!-- <div class="card-body"> -->
 				<div class="row">
-					<a class="col-auto mr-auto" href="/campgrounds"><i class="fas fa-arrow-left"></i> Return to campgrounds</a>
+					<a class="col-auto mr-auto" href="/campgrounds"><i class="fas fa-arrow-left"></i> Retornar aos acampamentos</a>
 					<div class="col-auto">
-						<a class="btn btn-success" href="/campgrounds/<%= campground._id %>/comments/new">Add New Comment <i class="fas fa-plus"></i></a>
+						<a class="btn btn-success" href="/campgrounds/<%= campground._id %>/comments/new">Adicionar comentário <i class="fas fa-plus"></i></a>
 					</div>
 				</div>
 				<hr>
@@ -120,9 +120,9 @@
 										<p><em><%= moment(comment.createdAt).fromNow() %></em></p>
 										<% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
 											<div class="float-right">
-												<a class="btn btn-sm btn-warning" href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">Edit <i class="fas fa-edit"></i></a>
+												<a class="btn btn-sm btn-warning" href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">Editar <i class="fas fa-edit"></i></a>
 												<form class="delete-form" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
-													<button class="btn btn-sm btn-danger">Delete <i class="fas fa-trash-alt"></i></button>
+													<button class="btn btn-sm btn-danger">Deletar <i class="fas fa-trash-alt"></i></button>
 												</form>
 											</div>
 										<% } %>
