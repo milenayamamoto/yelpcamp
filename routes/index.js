@@ -28,9 +28,9 @@ router.post("/register", (req, res) =>{
 	//Check if user is registered as admin
 	if(req.body.adminCode === process.env.ADMINCODE) {
 		newUser.isAdmin = true;
-		req.flash("success", "Registered as admin! ");
+		req.flash("success", "Cadastrado como admin! ");
 	} else if (req.body.adminCode && req.body.adminCode !== process.env.ADMINCODE) {
-		req.flash("error", "Your code does not match with the admin code! ");
+		req.flash("error", "Seu código admin está errado! ");
 	}
 	User.register(newUser, req.body.password, (err, user) =>{
 		if(err){
@@ -38,7 +38,7 @@ router.post("/register", (req, res) =>{
 			return res.redirect("/register");
 		}
 		passport.authenticate("local")(req, res, ()=>{
-			req.flash("success", "Welcome to YelpCamp, " + user.username);
+			req.flash("success", "Bem-vindo ao AcampAki, " + user.username);
 			res.redirect("/campgrounds");
 		});
 	});
@@ -55,14 +55,14 @@ router.post("/login", passport.authenticate("local",
 	successRedirect: "/campgrounds",
 	failureRedirect: "/login",
 	failureFlash: true,
-	successFlash: "Welcome back to YelpCamp!" 
+	successFlash: "Bem-vindo novamente!" 
 	}), (req, res) =>{
 });
 
 //Logout route
 router.get("/logout", (req, res) =>{
 	req.logout();
-	req.flash("success", "You've been logged out successfully. We hope to see you again soon!");
+	req.flash("success", "Você saiu com sucesso, esperamos te ver novamente!");
 	res.redirect("/campgrounds");
 });
 
@@ -70,12 +70,12 @@ router.get("/logout", (req, res) =>{
 router.get("/users/:id", (req, res) => {
 	User.findById(req.params.id, (err, foundUser) => {
 		if(err) {
-			req.flash("error", "Something went wrong!");
+			req.flash("error", "Alguma coisa deu errado!");
 			req.redirect("/");
 		}
 		Campground.find().where("author.id").equals(foundUser._id).exec((err, campgrounds) =>{
 			if(err){
-				req.flash("error", "Something went wrong!");
+				req.flash("error", "Alguma coisa deu errado!");
 				req.redirect("/");
 			}	
 			res.render("users/show", {user: foundUser, campgrounds: campgrounds});
