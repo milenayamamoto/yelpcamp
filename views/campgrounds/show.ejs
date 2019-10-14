@@ -19,12 +19,12 @@
 				<div class="list-inline">
 					<h3 class="card-title list-inline-item"><%= campground.name %></h3>
 					<h4  class="float-right list-inline-item">
-						<span class="badge badge-pill badge-dark"><em>$<%= campground.price %> /dia</em></span>
+						<span class="badge badge-pill badge-dark"><em>R$<%= campground.price %> /noite</em></span>
 				 	</h4>
 				</div>
 				<p>
 					<em>Enviado por: <a href="/users/<%= campground.author.id %>"><%= campground.author.username %></a></em>
-					<em class="float-right"><%= moment(campground.createdAt).fromNow() %></em>
+					<em class="float-right"><%= moment(campground.createdAt).locale('pt-br').fromNow() %></em>
 				</p>
 				<hr>
 				
@@ -117,7 +117,7 @@
 										<p class="card-text"><%= comment.text %></p>
 									</div>
 									<div class="float-right">
-										<p><em><%= moment(comment.createdAt).fromNow() %></em></p>
+										<p><em><%= moment(comment.createdAt).locale('pt-br').fromNow() %></em></p>
 										<% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
 											<div class="float-right">
 												<a class="btn btn-sm btn-warning" href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">Editar <i class="fas fa-edit"></i></a>

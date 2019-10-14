@@ -62,7 +62,7 @@ router.post("/login", passport.authenticate("local",
 //Logout route
 router.get("/logout", (req, res) =>{
 	req.logout();
-	req.flash("success", "Você saiu com sucesso, esperamos te ver novamente!");
+	req.flash("success", "Você foi deslogado com sucesso, esperamos te ver novamente!");
 	res.redirect("/campgrounds");
 });
 

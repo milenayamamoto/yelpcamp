@@ -6,7 +6,10 @@
 	<div class="container text-center">
 		<h1><i class="fas fa-map-signs"></i><span class="font-title"> Bem-vindo ao AcampAki!</span></h1>
 		<p>Veja nossos acampamentos e descubra momentos maravilhosos.</p>
-		
+		<!-- New Campground button -->
+		<div class="mb-4">
+			<a class="btn btn-success btn-acamp" href="/campgrounds/new"><i class="fas fa-mountain"></i> Adicionar acampamento</a>
+		</div>
 	</div>
 </div>
 
@@ -20,29 +23,29 @@
 	</div>
 </form>	
 
-<!-- New Campground button -->
-<div class="mb-4">
-	<a class="btn btn-success" href="/campgrounds/new"><i class="fas fa-mountain"></i> Adicionar acampamento</a>
-</div>
-
 <div class="row text-center">
 	<% campgrounds.forEach((campground) => { %>
 		<div class="col-lg-3 col-md-4 col-sm-6 mb-4">			
-			<div class="card">
-				<!-- Check if there's a campground image -->
-				<% if(campground.image !== "") { %>
-					<img src="<%= campground.image %>" class="card-img-top landing-page" alt="<%= campground.image %>">
-				<% } else { %>
-					<img src="https://dummyimage.com/500x300/a1a1a1/ffffff&text=No+Image" class="card-img-top landing-page" alt="Sem imagem disponível">
-				<% } %>
-				
-				<div class="card-body">
-					<div class="float-right">
-					   <span class="badge badge-pill badge-success"><i class="fas fa-thumbs-up"></i> <%= campground.likes.length %></span>
-				   </div>
-					<h5 class="card-title"><%= campground.name %></h5>
-					<a href="/campgrounds/<%= campground._id %>" class="btn btn-dark">Ver mais <i class="fas fa-angle-right"></i></a>
-				</div>
+			<div class="card index-card">
+				<a href="/campgrounds/<%= campground._id %>">
+					<!-- Check if there's a campground image -->
+					<div class="img-card-campground">
+						<% if(campground.image !== "") { %>
+							<img src="<%= campground.image %>" class="card-img-top landing-page" alt="<%= campground.image %>">
+						<% } else { %>
+							<img src="https://dummyimage.com/500x300/a1a1a1/ffffff&text=No+Image" class="card-img-top landing-page" alt="Sem imagem disponível">
+						<% } %>
+						<div class="badges">
+							<span class="badge badge-pill badge-light mr-2 text-primary"><i class="fas fa-thumbs-up"></i> <%= campground.likes.length %></span>
+							<span class="badge badge-pill badge-warning"><i class="fas fa-comments"></i> <%= campground.comments.length %></span>
+						</div>
+					</div>
+					<h5 class="card-title my-3"><%= campground.name %></h5>
+					<div class="card-body p-0 pb-2">
+						<p>R$<%= campground.price %> <small>/noite</small></p>
+
+					</div>
+				</a>
 			</div>	
 		</div>
 	<% }) %>

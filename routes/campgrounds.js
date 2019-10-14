@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Campground = require("../models/campgrounds");
+var Comment = require("../models/comment");
 var middleware = require("../middleware");
 var NodeGeocoder = require('node-geocoder');
  
@@ -161,13 +162,37 @@ router.put("/:id", middleware.checkCampgroundOwnership, (req, res) => {
 
 //DESTROY CAMPGROUND ROUTE
 router.delete("/:id", middleware.checkCampgroundOwnership, (req, res) => {
-	Campground.findByIdAndRemove(req.params.id, (err) =>{
-		if(err){
+	// Campground.findByIdAndRemove(req.params.id, (err) =>{
+	// 	if(err){
+	// 		res.redirect("/campgrounds");
+	// 	} else {
+	// 		req.flash("success", "Acampamento excluído com sucesso!");
+	// 		res.redirect("/campgrounds");
+	// 	}
+	// });
+	Campground.findByIdAndRemove(req.params.id, (err, foundCampground) => {
+		if (err) {
+			req.flash("error", "Houve algum problema! " + err);
 			res.redirect("/campgrounds");
 		} else {
-			req.flash("success", "Acampamento excluído com sucesso!");
-			res.redirect("/campgrounds");
-		}
+			//Deletando comentários relacionados
+			Comment.remove({ _id: { $in: foundCampground.comments } }, (err, result) => {
+				if (err) {
+					req.flash("error", "Houve algum problema! " + err);
+					res.redirect("/campgrounds");
+				};
+			});
+			//Deletando o acampamento
+			foundCampground.remove((err, deletedCampground) => {
+				if (err) {
+					req.flash("error", "Houve algum problema! " + err);
+					res.redirect("/campgrounds");
+				} else {
+					req.flash("success", "Acampamento deletado com sucesso!");
+					res.redirect("/campgrounds");
+				};
+			});
+		};
 	});
 });
 

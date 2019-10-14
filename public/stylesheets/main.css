@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Architects+Daughter&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Ubuntu:400,700&display=swap');
+
 html {
 	position: relative;
 	min-height: 100%;
@@ -29,13 +33,55 @@ body {
 }
 
 .font-title {
-	font-family: 'Pacifico', cursive;
+	font-family: 'Architects Daughter', cursive;
+}
+
+.btn-acamp {
+	border-radius: 30px;
+	padding: 10px 20px;
+	box-shadow: 0 15px 10px -10px rgb(15, 15, 15);
+}
+
+.btn-acamp:hover {
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5), 0 0 40px rgba(128, 128, 128, 0.8) inset;
 }
 
 .card-img-top.landing-page {
 	width: 100%;
 	height: 20vh;
 	object-fit: cover;
+}
+
+.index-card {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+	border: 1.5px solid #ccc;
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 18px;
+}
+
+.index-card:hover {
+	box-shadow: none;
+	border: 1.5px solid #343a40;
+}
+
+.index-card .img-card-campground {
+	position: relative;
+}
+
+.index-card .badges {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+}
+
+.index-card .card-title {
+	font-weight: 700;
+	font-size: 20px;
+}
+
+.index-card a {
+	text-decoration: none;
+	color: #000;
 }
 
 /* Thumbnail styles */

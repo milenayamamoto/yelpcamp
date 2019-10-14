@@ -19,6 +19,7 @@ var commentRoutes 		= require("./routes/comments"),
 	indexRoutes 		= require("./routes/index")
 
 mongoose.connect(process.env.DATABASEURL, { 
+	useUnifiedTopology: true,
 	useNewUrlParser: true,
 	useCreateIndex: true
 }).then(() => {
@@ -61,11 +62,11 @@ app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
 // GoormIDE
-// app.listen(3000, () =>{
-// 	console.log("YelpCamp server has started!");
+// app.listen(process.env.PORT || 3000, () =>{
+// 	console.log("Server is running!");
 // });
 
 // Heroku
-app.listen(process.env.PORT, process.env.IP, () =>{
+app.listen(process.env.PORT || 3000, process.env.IP, () =>{
 	console.log("Server is running!");
 });

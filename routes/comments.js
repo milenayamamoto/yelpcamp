@@ -75,14 +75,38 @@ router.put("/:comment_id", middleware.checkCommentOwnership, (req, res) =>{
 
 //COMMENT DESTROY ROUTE
 router.delete("/:comment_id", middleware.checkCommentOwnership, (req, res) =>{
-	Comment.findByIdAndRemove(req.params.comment_id, (err) =>{
-		if(err){
+	// Comment.findByIdAndRemove(req.params.comment_id, (err) =>{
+	// 	if(err){
+	// 		res.redirect("back");
+	// 	} else {
+	// 		req.flash("success", "Comentário excluído com sucesso!");
+	// 		res.redirect("/campgrounds/" + req.params.id);
+	// 	}
+	// });
+
+	Comment.findByIdAndRemove(req.params.comment_id, (err) => {
+		if (err) {
+			req.flash("error", "Problemas em deletar o comentário!");
+			console.log(err);
 			res.redirect("back");
 		} else {
-			req.flash("success", "Comentário excluído com sucesso!");
-			res.redirect("/campgrounds/" + req.params.id);
-		}
+			//remove comment id from campgrounds db
+			Campground.findByIdAndUpdate(req.params.id, {
+				$pull: { comments: req.params.comment_id }
+			}, (err, data) => {
+				if (err) {
+					req.flash("error", "Problemas em deletar o comentário!");
+					console.log(err);
+				} else {
+					req.flash("success", "Comentário excluído com sucesso!");
+					res.redirect("/campgrounds/" + req.params.id);
+				}
+			});
+		};
 	});
+
+
+
 });
 
 module.exports = router;
